@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from multiprocessing import connection
 
 import yaml
 from pydantic import BaseModel
@@ -28,7 +29,8 @@ def build_source(source) -> Source:
             return LokiSource(
                 url=source["connection"]["url"],
                 grafana_key=source["connection"]["grafana_key"],
-                datasource_uid=source["connection"]["datasource_uid"]
+                datasource_uid=source["connection"]["datasource_uid"],
+                labels=source["labels"]
             )
         case _:
             raise RuntimeError

@@ -1,2 +1,2 @@
-def group_by_fingerprint():
+def group_by_fingerprint(logs: list[str]):
     pass
