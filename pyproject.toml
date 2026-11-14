@@ -1,0 +1,12 @@
+[project]
+name = "error-digest"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["typer", "httpx", "pydantic", "pyyaml", "dotenv"]
+
+[project.scripts]
+error-digest = "error_digest.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
