@@ -1,12 +1,11 @@
 from dataclasses import dataclass
-from multiprocessing import connection
 
 import yaml
-from pydantic import BaseModel
 
 from error_digest.sinks.sink import Sink
-from error_digest.sources.source import Source
 from error_digest.sources.loki_source import LokiSource
+from error_digest.sources.source import Source
+
 
 @dataclass
 class Config:
@@ -16,7 +15,6 @@ class Config:
     max_issues: int = 10
     # ignore_rules: list[str] = []
     # scrub_rules: list[str] = []
-
 
     # traces: TraceSource
 
@@ -30,7 +28,7 @@ def build_source(source) -> Source:
                 url=source["connection"]["url"],
                 grafana_key=source["connection"]["grafana_key"],
                 datasource_uid=source["connection"]["datasource_uid"],
-                labels=source["labels"]
+                labels=source.get("labels", {}),
             )
         case _:
             raise RuntimeError
@@ -43,11 +41,12 @@ def build_sinks(rawSinks: list) -> list[Sink]:
 
 
 def load_config(path: str) -> Config:
-    raw = yaml.safe_load(open(path))
+    with open(path) as yaml_opened:
+        raw = yaml.safe_load(yaml_opened)
 
-    return Config(
-        window=raw["window"],
-        max_issues=raw["max_issues"],
-        source=build_source(raw["source"]),
-        sinks=build_sinks(raw["sinks"])
-    )
+        return Config(
+            window=raw["window"],
+            max_issues=raw["max_issues"],
+            source=build_source(raw["source"]),
+            sinks=build_sinks(raw["sinks"]),
+        )

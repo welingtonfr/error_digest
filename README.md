@@ -61,6 +61,7 @@ Sources and sinks are small `Protocol`s, so adding your own is straightforward:
 class Source(Protocol):
     def fetch_errors(self, since: timedelta) -> list[str]: ...
 
+
 class Sink(Protocol):
     def write(self, title: str, body: str, labels: list[str]): ...
 ```
