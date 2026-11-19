@@ -139,7 +139,7 @@ Full reference in [docs](docs/configuration.md):
 - [Ignore](docs/ignore/README.md): text and regex rules
 - [Sinks](docs/sinks/README.md): GitHub (ClickUp planned)
 
-`scrub` and `state` are planned but not implemented yet. See the [Roadmap](#roadmap).
+`scrub` and `state` (see **Dedup** in the [Roadmap](#roadmap)) are planned but not implemented yet.
 
 **Keep secrets out of git.** Don't commit real tokens in config files; load them from environment variables or a `.env` file (see `.env.example`), and make sure those files are in `.gitignore`.
 
@@ -168,9 +168,9 @@ Done:
 
 Planned:
 
+- [ ] **Dedup:** avoid duplicate issues. Remember what was already reported (`state` in the config, local SQLite keyed by sink and fingerprint) and, when the same error comes back, add a comment to the existing issue through the sink's `comment` instead of opening a new one. Until this lands, every `--apply` opens new issues for the same errors.
 - [ ] **Scrub:** redact sensitive data (e.g. CPF, email) from messages and traces before anything leaves your infrastructure (`scrub` in the config).
 - [ ] **Rank:** today groups are ordered by number of occurrences and cut at `max_issues`. Next: score by recency, growth against the previous window and severity, so a new burst ranks above a constant old error.
-- [ ] **State:** remember reported errors (`state` in the config) to avoid duplicate issues, and use the sink's `comment` to update an existing issue when the error comes back.
 - [ ] **Fix agent:** an agent that receives each group and its trace summary and suggests a correction, attached to the issue (see [The fix agent](#the-fix-agent)).
 - [ ] **More sinks:** ClickUp first (skeleton exists), then others such as Jira, Linear and Slack. Each one implements the `Sink` protocol, see [docs/sinks](docs/sinks/README.md).
 - [ ] **More sources and trace backends:** direct connection to Loki and Tempo without Grafana, and other backends (e.g. Jaeger, Sentry).
