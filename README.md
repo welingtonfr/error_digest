@@ -174,3 +174,7 @@ Planned:
 - [ ] **Fix agent:** an agent that receives each group and its trace summary and suggests a correction, attached to the issue (see [The fix agent](#the-fix-agent)).
 - [ ] **More sinks:** ClickUp first (skeleton exists), then others such as Jira, Linear and Slack. Each one implements the `Sink` protocol, see [docs/sinks](docs/sinks/README.md).
 - [ ] **More sources and trace backends:** direct connection to Loki and Tempo without Grafana, and other backends (e.g. Jaeger, Sentry).
+
+## License
+
+[MIT](LICENSE)

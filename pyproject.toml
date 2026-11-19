@@ -2,6 +2,8 @@
 name = "error-digest"
 version = "0.1.0"
 requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
 dependencies = ["typer", "httpx", "pydantic", "pyyaml", "dotenv"]
 
 [project.scripts]
